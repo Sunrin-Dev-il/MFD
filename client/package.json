@@ -1,0 +1,13 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "logpacket",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^3.0.0"
+  },
+  "scripts":{
+    "start":"electron ."
+  }
+}
