@@ -3,9 +3,11 @@ const { app, BrowserWindow } = require('electron');
 app.on('ready', () => {
     let mainWindow = new BrowserWindow({
         height:800,
-        width:1200
+        width:600,
+        'node-intergration' :false
     });
-    mainWindow.loadFile('./renderer/index.html');
+
+    mainWindow.loadFile('./renderer/mfd.html');
 
     mainWindow.on('closed',() => {
         mainWindow = null; 
