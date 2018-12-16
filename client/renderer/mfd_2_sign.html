@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>회원가입</title>
+
+<link rel="stylesheet" href="./css/mfd_2.css">
+
+</head>
+
+  <h2> Mfd </h2>w
+
+
+<body class="align">
+  <script src="./js/socket.io.js"></script>
+  <script>window.$ = window.jQuery = require('jQuery');</script>
+
+  <div class="site__container">
+
+    <div class="grid__container">
+
+      <form class="form form--login">
+
+        <div class="form__field">
+          <label class="fontawesome-user" for="Register__username"><span class="hidden">Username</span></label>
+          <input id="Register__username" type="text" class="form__input" placeholder="Username" required>
+        </div>
+
+        <div class="form__field">
+          <label class="fontawesome-lock" for="Register__password"><span class="hidden">Password</span></label>
+          <input id="Register__password" type="password" class="form__input" placeholder="Password2" required>
+        </div>
+
+        <div class="form__field">
+          <label class="fontawesome-lock" for="Register__password"><span class="hidden">Password_Again</span></label>
+          <input id="Register__password" type="password" class="form__input" placeholder="Password2" required>
+        </div>
+
+        <div class="form__field">
+          <input type="submit" value="Register" id="Register">
+        </div>
+
+      </form>
+
+     
+
+    </div>
+
+  </div>
+
+  <script>
+    let socket = io('http://localhost:3000', { transports: ['websocket'] });
+    $('.form').on('submit',function(e){
+      e.preventDefault();
+      const ID = $('input#Register__username').val();
+      const PW = $('input#Register__password').val();
+      const msg = {
+        ID: ID,
+        PW: PW
+      };
+      socket.emit('register', msg);
+    });
+    
+    socket.on('register',msg=>{
+      if(msg === 'success'){
+        alert('register success');
+        window.location.assign('mfd_2.html');
+      }
+      else alert('register failed');
+    });
+  </script>
+</body>
+</html>

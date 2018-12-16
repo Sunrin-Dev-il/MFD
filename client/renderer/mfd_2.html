@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>로그인</title>
+
+<link rel="stylesheet" href="./css/mfd_2.css">
+
+</head>
+
+  <h2> Mfd </h2>
+
+
+<body class="align">
+  <script src="./js/socket.io.js"></script>
+  <script>window.$ = window.jQuery = require('jQuery');</script>
+
+  <div class="site__container">
+
+    <div class="grid__container">
+
+      <form class="form form--login">
+
+        <div class="form__field">
+          <label class="fontawesome-user" for="login__username"><span class="hidden">Username</span></label>
+          <input id="login__username" type="text" class="form__input" placeholder="Username" required>
+        </div>
+
+        <div class="form__field">
+          <label class="fontawesome-lock" for="login__password"><span class="hidden">Password</span></label>
+          <input id="login__password" type="password" class="form__input" placeholder="Password" required>
+        </div>
+
+        <div class="form__field">
+          <input type="submit" value="Log In" id="login">
+        </div>
+
+      </form>
+
+      <p class="text--center">Not a member? <a href="mfd_2_sign.html">Sign up now</a> <span class="fontawesome-arrow-right"></span></p>
+
+    </div>
+
+  </div>
+  <script>
+    let socket = io('http://localhost:3000', { transports: ['websocket'] });
+    $('.form--login').on('submit',function(e){
+      const ID = $('#login__username').val()
+      const PW =  $('#login__password').val()
+      e.preventDefault();
+      const msg ={
+        ID:ID,
+        PW:PW
+      }
+      socket.emit('login',msg);
+    });
+
+    socket.on('login',msg=>{
+      if(msg === 'success'){
+        alert('login successs');
+        window.location.assign('mfd_2_chat.html');
+      }
+      else alert('login failed');
+    });
+  </script>
+</body>
+</html>

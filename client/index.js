@@ -7,7 +7,7 @@ app.on('ready', () => {
         'node-intergration' : false
     });
 
-    mainWindow.loadFile('./renderer/mfd.html');
+    mainWindow.loadFile('./renderer/mfd_2.html');
 
     mainWindow.on('closed',() => {
         mainWindow = null; 

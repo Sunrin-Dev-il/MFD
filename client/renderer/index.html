@@ -1,320 +1,25 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+  <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-margin: 0 auto;
-max-width: 800px;
-padding: 0 20px;
-}
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/highlight/default.css">
+    <script src="./js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
 
-.container {
-border: 2px solid #dedede;
-background-color: #f1f1f1;
-border-radius: 5px;
-padding: 10px;
-margin: 10px 0;
-}
-
-.darker {
-border-color: #ccc;
-background-color: #ddd;
-}
-
-.container::after {
-content: "";
-clear: both;
-display: table;
-}
-
-.container img {
-float: left;
-max-width: 60px;
-width: 100%;
-margin-right: 20px;
-border-radius: 50%;
-}
-
-.container img.right {
-float: right;
-margin-left: 20px;
-margin-right:0;
-}
-
-.time-right {
-float: right;
-color: #aaa;
-}
-
-.time-left {
-float: left;
-color: #999;
-}
-.vr { 
-    display: inline;
-    width:1px;
-    background-color:aqua;
-    position:absolute;
-    top:0;
-    bottom:0;
-    left:90%;
-
-}
-
-.vr1 { 
-    display: block;
-    width:1px;
-    background-color:lime;
-    position:absolute;
-    top:0;
-    bottom:0;
-    left:90.25%;
-
-}
-
-.vr2 { 
-    display: block;
-    width:1px;
-    background-color:pink;
-    position:absolute;
-    top:0;
-    bottom:0;
-    left:90.5%;
-
-}
-
-
-body 
-{
-background-color: black;
-overflow: hidden;
-}
-.webdesigntuts-workshop:before {
-  background: #444;
-  background: -webkit-linear-gradient(left, #151515, #444, #151515);
-  background: -moz-linear-gradient(left, #151515, #444, #151515);
-  background: -o-linear-gradient(left, #151515, #444, #151515);
-  background: -ms-linear-gradient(left, #151515, #444, #151515);
-  background: linear-gradient(left, #151515, #444, #151515);
-  top: 192px;
-}
-
-.webdesigntuts-workshop:after {
-  background: #000;
-  background: -webkit-linear-gradient(left, #151515, #000, #151515);
-  background: -moz-linear-gradient(left, #151515, #000, #151515);
-  background: -o-linear-gradient(left, #151515, #000, #151515);
-  background: -ms-linear-gradient(left, #151515, #000, #151515);
-  background: linear-gradient(left, #151515, #000, #151515);
-  top: 191px;
-}
-
-
-.webdesigntuts-workshop input {
-  background: #222;
-  background: -webkit-linear-gradient(#333, #222);
-  background: -moz-linear-gradient(#333, #222);
-  background: -o-linear-gradient(#333, #222);
-  background: -ms-linear-gradient(#333, #222);
-  background: linear-gradient(#333, #222);
-  border: 1px solid #444;
-  border-radius: 5px 0 0 5px;
-  box-shadow: 0 2px 0 #000;
-  color: #888;
-  display: block;
-  float: left;
-  font-family: 'Cabin', helvetica, arial, sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  height: 40px;
-  margin: 0;
-  padding: 0 10px;
-  text-shadow: 0 -1px 0 #000;
-  width: 300px;
-}
-
-.ie .webdesigntuts-workshop input {
-  line-height: 45px;
-}
-
-.webdesigntuts-workshop input::-webkit-input-placeholder {
-  color: #888;
-}
-
-.webdesigntuts-workshop input:-moz-placeholder {
-  color: #888;
-}
-
-.webdesigntuts-workshop input:focus {
-  -webkit-animation: glow 800ms ease-out infinite alternate;
-  -moz-animation: glow 800ms ease-out infinite alternate;
-  -o-animation: glow 800ms ease-out infinite alternate;
-  -ms-animation: glow 800ms ease-out infinite alternate;
-  animation: glow 800ms ease-out infinite alternate;
-  background: #222922;
-  background: -webkit-linear-gradient(#333933, #222922);
-  background: -moz-linear-gradient(#333933, #222922);
-  background: -o-linear-gradient(#333933, #222922);
-  background: -ms-linear-gradient(#333933, #222922);
-  background: linear-gradient(#333933, #222922);
-  border-color: #393;
-  box-shadow: 0 0 5px rgba(0, 255, 0, .2), inset 0 0 5px rgba(0, 255, 0, .1), 0 2px 0 #000;
-  color: #efe;
-  outline: none;
-}
-
-.webdesigntuts-workshop input:focus::-webkit-input-placeholder {
-  color: #efe;
-}
-
-.webdesigntuts-workshop input:focus:-moz-placeholder {
-  color: #efe;
-}
-
-.webdesigntuts-workshop button {
-  background: #222;
-  background: -webkit-linear-gradient(#333, #222);
-  background: -moz-linear-gradient(#333, #222);
-  background: -o-linear-gradient(#333, #222);
-  background: -ms-linear-gradient(#333, #222);
-  background: linear-gradient(#333, #222);
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  -o-box-sizing: content-box;
-  -ms-box-sizing: content-box;
-  box-sizing: content-box;
-  border: 1px solid #444;
-  border-left-color: #000;
-  border-radius: 0 5px 5px 0;
-  box-shadow: 0 2px 0 #000;
-  color: #fff;
-  display: block;
-  float: left;
-  font-family: 'Cabin', helvetica, arial, sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  height: 38px;
-  line-height: 40px;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  text-shadow: 0 -1px 0 #000;
-  width: 80px;
-}
-
-.webdesigntuts-workshop button:hover,
-.webdesigntuts-workshop button:focus {
-  background: #292929;
-  background: -webkit-linear-gradient(#393939, #292929);
-  background: -moz-linear-gradient(#393939, #292929);
-  background: -o-linear-gradient(#393939, #292929);
-  background: -ms-linear-gradient(#393939, #292929);
-  background: linear-gradient(#393939, #292929);
-  color: #5f5;
-  outline: none;
-}
-
-.webdesigntuts-workshop button:active {
-  background: #292929;
-  background: -webkit-linear-gradient(#393939, #292929);
-  background: -moz-linear-gradient(#393939, #292929);
-  background: -o-linear-gradient(#393939, #292929);
-  background: -ms-linear-gradient(#393939, #292929);
-  background: linear-gradient(#393939, #292929);
-  box-shadow: 0 1px 0 #000, inset 1px 0 1px #222;
-  top: 1px;
-}
-
-@-webkit-keyframes glow {
-  0% {
-    border-color: #393;
-    box-shadow: 0 0 5px rgba(0, 255, 0, .2), inset 0 0 5px rgba(0, 255, 0, .1), 0 2px 0 #000;
-  }
-  100% {
-    border-color: #6f6;
-    box-shadow: 0 0 20px rgba(0, 255, 0, .6), inset 0 0 10px rgba(0, 255, 0, .4), 0 2px 0 #000;
-  }
-}
-
-@-moz-keyframes glow {
-  0% {
-    border-color: #393;
-    box-shadow: 0 0 5px rgba(0, 255, 0, .2), inset 0 0 5px rgba(0, 255, 0, .1), 0 2px 0 #000;
-  }
-  100% {
-    border-color: #6f6;
-    box-shadow: 0 0 20px rgba(0, 255, 0, .6), inset 0 0 10px rgba(0, 255, 0, .4), 0 2px 0 #000;
-  }
-}
-
-@-o-keyframes glow {
-  0% {
-    border-color: #393;
-    box-shadow: 0 0 5px rgba(0, 255, 0, .2), inset 0 0 5px rgba(0, 255, 0, .1), 0 2px 0 #000;
-  }
-  100% {
-    border-color: #6f6;
-    box-shadow: 0 0 20px rgba(21, 54, 21, 0.6), inset 0 0 10px rgba(0, 255, 0, .4), 0 2px 0 #000;
-  }
-}
-
-@-ms-keyframes glow {
-  0% {
-    border-color: #393;
-    box-shadow: 0 0 5px rgba(0, 255, 0, .2), inset 0 0 5px rgba(0, 255, 0, .1), 0 2px 0 #000;
-  }
-  100% {
-    border-color: #6f6;
-    box-shadow: 0 0 20px rgba(0, 255, 0, .6), inset 0 0 10px rgba(0, 255, 0, .4), 0 2px 0 #000;
-  }
-}
-
-@keyframes glow {
-  0% {
-    border-color: #393;
-    box-shadow: 0 0 5px rgba(0, 255, 0, .2), inset 0 0 5px rgba(0, 255, 0, .1), 0 2px 0 #000;
-  }
-  100% {
-    border-color: #6f6;
-    box-shadow: 0 0 20px rgba(0, 255, 0, .6), inset 0 0 10px rgba(0, 255, 0, .4), 0 2px 0 #000;
-  }
-}
-
-
-</style>
-
-<link rel="stylesheet" href="./css/default.css">
-<script src="./js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
-</head>
-
-<body>
+  <body>
     <script src="./js/socket.io.js"></script>
     <script>window.$ = window.jQuery = require('jQuery');</script>
+
     <h1 style=" color:white; text-shadow: 0 0 5px white; font-size: 3rem;">Chat Room.</h1>
-
     <br><br><br>
-
+    
     <div id = 'chat' style="overflow: hidden; overflow: scroll; height: 72vh; width: 55vh; position: fixed; top :15%;">
-
-
-        <!-- <div class="container darker">
-            <img src="/w3images/avatar_g2.jpg" alt="Avatar" style="width:100%;">
-            <p>인정 인정 ㅎ</p>
-            <span class="time-left">11:05</span>
-        </div> -->
-
+    
     </div>
-<!-- 
-    <section class="webdesigntuts-workshop" style="position: fixed; bottom: 3%;">
-        <form id="sender">
-            <input id="msg" type="search" placeholder="Message.">
-            <button id="send" type="submit">Send.</button>
-        </form>
-    </section> -->
     <section class="webdesigntuts-workshop" style="position: fixed; bottom: 3%;">
         <form id="code">
             <input id="codemsg" type="search" placeholder="Message.">
@@ -322,25 +27,16 @@ overflow: hidden;
         </form>
     </section>
 
-<script>
+    <script>
     let socket = io('http://localhost:3000');
-    // socket.on('message', function(msg){
-    //     $('#chat').append('<div class="container darcker" style = "overflow-y : scroll;"><p>' + msg + '</p><span class="time left">' + new Date().getHours() + ':' + new Date().getMinutes() + '</span></div>');
-    // });
 
     socket.on('code', function(msg){
-        $('#chat').append('<div class="container darcker" style = " overflow-y : scroll;"><pre><code>' + msg + '</pre></code></p><span class="time left">' + new Date().getHours() + ':' + new Date().getMinutes() + '</span></div>');
+        msg = msg.replace(/</g, '&lt').replace(/>/g, '&gt');
+        $('#chat').append('<div class="container darcker" style = " overflow-y : scroll;"><pre><code>' + msg + '</code></pre> </br><span class="time left">' + new Date().getHours() + ':' + new Date().getMinutes() + '</span></div>');
         $("pre code").each(function(i, block){
             hljs.highlightBlock(block);
-        })
+        });
     });
-
-    // $('#sender').on("submit", function(e){
-    //     e.preventDefault();
-    //     let $msg = $('#msg');
-    //     socket.emit('message',$msg.val());
-    //     $msg.val("");
-    // });
 
     $('#code').on("submit", function(e){
         e.preventDefault();
@@ -349,7 +45,6 @@ overflow: hidden;
         $msg.val("");
     });
 
-</script>
-</body>
-
+    </script>
+  </body>
 </html>
