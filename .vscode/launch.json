@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "electron",
+            "request": "launch",
+            "name": "Launch Electron",
+            "appDir": "${workspaceRoot}/client",
+            "sourceMaps": true
+        },
+        {
+            "name": "Debug Main Process",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}/client",
+            "runtimeExecutable": "C:/Users/장성윤/AppData/Roaming/npm/electron.cmd",
+            "program": "${workspaceRoot}/client/index.js"
+        }
+    ]
+}

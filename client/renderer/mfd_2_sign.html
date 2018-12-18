@@ -1,18 +1,18 @@
 <!doctype html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>회원가입</title>
 
-<link rel="stylesheet" href="./css/mfd_2.css">
+<head>
+  <meta charset="UTF-8">
+  <title>회원가입</title>
+
+  <link rel="stylesheet" href="./css/mfd_2.css">
 
 </head>
 
-  <h2> Mfd </h2>w
+<h2> Mfd </h2>w
 
 
 <body class="align">
-  <script src="./js/socket.io.js"></script>
   <script>window.$ = window.jQuery = require('jQuery');</script>
 
   <div class="site__container">
@@ -42,32 +42,30 @@
 
       </form>
 
-     
+
 
     </div>
 
   </div>
 
   <script>
-    let socket = io('http://localhost:3000', { transports: ['websocket'] });
-    $('.form').on('submit',function(e){
+    const {
+      ipcRenderer
+    } = require('electron');
+    $('.form').on('submit', (e)=>{
       e.preventDefault();
       const ID = $('input#Register__username').val();
       const PW = $('input#Register__password').val();
-      const msg = {
-        ID: ID,
-        PW: PW
-      };
-      socket.emit('register', msg);
+      ipcRenderer.send('register', ID, PW);
     });
-    
-    socket.on('register',msg=>{
-      if(msg === 'success'){
+
+    ipcRenderer.on('register', (event, msg) => {
+      if (msg === 'success') {
         alert('register success');
         window.location.assign('mfd_2.html');
-      }
-      else alert('register failed');
+      } else alert('register failed');
     });
   </script>
 </body>
+
 </html>

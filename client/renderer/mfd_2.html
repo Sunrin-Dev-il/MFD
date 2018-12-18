@@ -1,18 +1,18 @@
 <!doctype html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>로그인</title>
 
-<link rel="stylesheet" href="./css/mfd_2.css">
+<head>
+  <meta charset="UTF-8">
+  <title>로그인</title>
+
+  <link rel="stylesheet" href="./css/mfd_2.css">
 
 </head>
 
-  <h2> Mfd </h2>
+<h2> Mfd </h2>
 
 
 <body class="align">
-  <script src="./js/socket.io.js"></script>
   <script>window.$ = window.jQuery = require('jQuery');</script>
 
   <div class="site__container">
@@ -43,25 +43,23 @@
 
   </div>
   <script>
-    let socket = io('http://localhost:3000', { transports: ['websocket'] });
-    $('.form--login').on('submit',function(e){
+    const {
+      ipcRenderer
+    } = require('electron');
+    $('.form--login').on('submit',(e)=>{
       const ID = $('#login__username').val()
-      const PW =  $('#login__password').val()
+      const PW = $('#login__password').val()
       e.preventDefault();
-      const msg ={
-        ID:ID,
-        PW:PW
-      }
-      socket.emit('login',msg);
+      ipcRenderer.send('login', ID, PW);
     });
 
-    socket.on('login',msg=>{
-      if(msg === 'success'){
+    ipcRenderer.on('login', (event, msg) => {
+      if (msg === 'success') {
         alert('login successs');
-        window.location.assign('mfd_2_chat.html');
-      }
-      else alert('login failed');
+        window.location.assign('mfd_2_index.html');
+      } else alert('login failed');
     });
   </script>
 </body>
+
 </html>

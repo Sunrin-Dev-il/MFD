@@ -1,0 +1,144 @@
+.css3-tab {
+  list-style: none;
+  margin: 0 auto 40px;
+  padding: 38px 0 0 0;
+  position: relative;
+  width: 90%;
+}
+.css3-tab input[type='radio'] {
+  display: none;
+}
+.css3-tab .css3-tab-nav {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+.css3-tab .css3-tab-nav label {
+  display: table-cell;
+  background-color: #666666;
+  color: #FFFFFF;
+  padding: 15px;
+  text-align: center;
+  transition: all .3s ease 0s;
+}
+.css3-tab .css3-tab-nav label:hover {
+  cursor: pointer;
+  background: white;
+  color: #666666;
+  transition: all .3s ease 0s;
+}
+@media (max-width: 692px) {
+  .css3-tab .css3-tab-nav {
+    display: block;
+    margin: 0 0 20px;
+  }
+  .css3-tab .css3-tab-nav label {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px;
+  }
+}
+.css3-tab .css3-tab-content {
+  overflow: hidden;
+  padding: 25px;
+  display: none;
+  background: #FFF;
+  clear: left;
+  box-sizing: border-box;
+}
+
+
+.css3-tab input[id='tabOne']:checked ~ .css3-tab-nav label[for='tabOne'] {
+  background: aqua;
+  color: #666666;
+  cursor: default;
+}
+.css3-tab input[id='tabOne']:checked ~ div.tab-one {
+  display: block;
+  border-top: solid 3px aqua;
+}
+
+
+
+
+
+.css3-tab input[id='tabTwo']:checked ~ .css3-tab-nav label[for='tabTwo'] {
+  background: pink;
+  color: white;
+  cursor: default;
+}
+.css3-tab input[id='tabTwo']:checked ~ div.tab-two {
+  display: block;
+  border-top: solid 3px pink;
+}
+
+
+
+
+.css3-tab input[id='tabThree']:checked ~ .css3-tab-nav label[for='tabThree'] {
+  background:#b6ff00 ;
+  color: white;
+  cursor: default;
+}
+.css3-tab input[id='tabThree']:checked ~ div.tab-Three {
+  display: block;
+  border-top: solid 3px #b6ff00;
+}
+
+
+
+
+
+body {
+  background: #e4e4e4;
+}
+
+.container {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.darker {
+  border-color: #ccc;
+  background-color: white;
+  opacity: 0.9;
+
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
+
+
+
+

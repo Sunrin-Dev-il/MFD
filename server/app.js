@@ -9,18 +9,18 @@ db();
 
 io.on('connection', socket => {
 
-    socket.on('code',msg=>{
-        io.to(msg.room).emit('code',msg.code);
+    socket.on('chat',msg=>{
+        io.to(msg.room).emit('chat',msg.code);
     });
     
-    socket.on('disconnect',user => {
-        console.log('disconnect : '+user.id);
+    socket.on('disconnect',() => {
+        console.log('disconnect : '+socket.id);
     });
 
-    socket.on('register',newUser=>{
+    socket.on('register',(ID,PW)=>{
         const User = new user({
-            ID: newUser.ID,
-            PW: newUser.PW
+            ID: ID,
+            PW: PW
         });
         User.save()
         .then(() => {
@@ -32,11 +32,12 @@ io.on('connection', socket => {
         });
     });
 
-    socket.on('login', User => {
-        console.log(User);
-        user.findOne({ ID: User.ID }).then((result) => {
-            if (result.PW === User.PW) {
+    socket.on('login', (ID,PW) => {
+        console.log('ID:'+ID+' PW:'+PW);
+        user.findOne({ ID: ID }).then((result) => {
+            if (result.PW === PW) {
                 console.log('login success');
+                result.
                 socket.emit('login', 'success');
             }
         }).catch((err) => {
@@ -65,6 +66,7 @@ io.on('connection', socket => {
         });
     });
 
+    
 
 });
 
