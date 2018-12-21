@@ -1,16 +1,18 @@
 const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http,{transports:['websocket']});
-const redis = require('socket.io-redis');
 const db = require('./db/db');
 const user = require('./db/userModel');
 
 db();
 
 io.on('connection', socket => {
+    console.log(socket.id);
 
-    socket.on('chat',msg=>{
-        io.to(msg.room).emit('chat',msg.code);
+    socket.on('chat',(msg,ID)=>{
+        // io.to(msg.room).emit('chat',msg.code);
+        msg = msg.replace(/</g,'&lt');
+        io.emit('chat',msg,ID);
     });
     
     socket.on('disconnect',() => {
@@ -34,14 +36,15 @@ io.on('connection', socket => {
 
     socket.on('login', (ID,PW) => {
         console.log('ID:'+ID+' PW:'+PW);
-        user.findOne({ ID: ID }).then((result) => {
+        user.findOne({ ID: ID })
+        .populate('friends')
+        .then((result) => {
             if (result.PW === PW) {
                 console.log('login success');
-                result.
-                socket.emit('login', 'success');
+                socket.emit('login', 'success',result);
             }
         }).catch((err) => {
-            socket.emit('login', 'failed');
+            socket.emit('login', 'failed',err);
             console.error(err);
         });
     });
@@ -52,7 +55,7 @@ io.on('connection', socket => {
                console.error(err);
                socket.emit('join','failed');
            }
-           else socket.emit('join','success'); 
+           else socket.emit('join','success',); 
         });   
     });
 
@@ -62,16 +65,16 @@ io.on('connection', socket => {
                 console.error(err);
                 socket.emit('leave',failed);
             }
-            else socket.emit('leave',success);
+            else socket.emit('leave',success,room);
         });
     });
 
-    
+    socket.on('addFriends',(user,friends)=>{
+        
+    });
 
 });
 
 http.listen(3000,() => {
     console.log('listen');
 });
-
-module.exports = io;

@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title> Mfd_index</title>
 	<link rel="stylesheet" href="./css/mfd2_index2.css">
+	<link rel="stylesheet" href="./css/atom-one-light.css">
 </head>
 
 <body>
@@ -31,42 +32,13 @@
 
 		</div>
 		<div class='css3-tab-content tab-two'>
-			<div class="container" style="background-color: pink; opacity: 0.5; ">
-				<div class="container darker">
+			<div id="friendsList" class="container" style="background-color: pink; opacity: 0.5; ">
+
+				<!-- <div class="container darker">
 					<p>백창인</p>
 					<span class="time-left">자전거 타고 싶다.</span>
-				</div>
+				</div> -->
 
-
-				<div class="container darker">
-					<p>권예준</p>
-					<span class="time-left">배고파</span>
-				</div>
-
-				<div class="container darker">
-					<p>이효민</p>
-					<span class="time-left">110kg</span>
-				</div>
-
-				<div class="container darker">
-					<p>조준용</p>
-					<span class="time-left">ㅗ</span>
-				</div>
-
-				<div class="container darker">
-					<p>임재민</p>
-					<span class="time-left">견제</span>
-				</div>
-
-				<div class="container darker">
-					<p>임제승</p>
-					<span class="time-left"></span>
-				</div>
-
-				<div class="container darker">
-					<p>강지훈</p>
-					<span class="time-left"></span>
-				</div>
 			</div>
 		</div>
 
@@ -75,7 +47,7 @@
 
 				<h5>백창인</h5>
 				<p>ㅗㅗ</p>
-				<span class="time-right">11:00</span>
+				<span class=" time-right">11:00</span>
 			</div>
 
 			<div class="container darker" <p>한이 머리 없어</p>
@@ -107,9 +79,15 @@
 			ipcRenderer.send('chat',message);
 		});
 		
+		ipcRenderer.send('freindsList','친구가 필요해 ㅠㅠ');
+		ipcRenderer.on('friendsList', (event, friends)=>{
+			friends.forEach(i => {
+			$("#friendsList").append('<div class="container darker"><p>'+i.ID+'</p><span class="time-left">'+i.profile_ment+'</span></div>');
+			});
+		});
 		ipcRenderer.on('chat',(event, msg)=>{
 			
-		});
+		})
 	</script>
 </body>
 </html>
