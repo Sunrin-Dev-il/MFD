@@ -67,9 +67,9 @@
             <div class="content">
                 <aside>
                     <div class="head">
-                        <div class="avatar">Wm</div>
-                        <div class="name">이우민</div>
-                        <div class="mail">lwm7522@gmail.com</div>
+                        <div class="avatar"></div>
+                        <div class="name"></div>
+                        <div class="mail"></div>
                     </div>
                     <div class="friends_list ok">
 
@@ -161,6 +161,9 @@
                         userInfo = data;
                         $("#userID").append(userInfo.ID);
                         $("#profile_ment").append(userInfo.profile_ment);
+                        $(".avartar").append(userInfo.ID);
+                        $(".name").append(userInfo.ID);
+                        $(".mail").append(userInfo.profile_ment);
                     });
                     
                     ipcRenderer.send('friendsList');
@@ -202,7 +205,7 @@
                         alert('success');
                         $("#room_list").empty();
                         $("#main_room").empty();
-                        $("messagecont").empty();
+                        $(".messagescont").empty();
                         $("#room_list").append('<div class="friend active fcenter"><div class="avatarbox"><div class="avatar_overlay"><img src="./img/friends.png" /></div></div><div class="namemsg"><p class="b" id="room_name">'+room+'</p></div></div>');
                         $("#main_room").append(room);
                     });
