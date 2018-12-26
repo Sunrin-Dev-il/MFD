@@ -7,12 +7,12 @@ const user = require('./db/userModel');
 db();
 
 io.on('connection', socket => {
-    console.log(socket.id);
+    let Room;
 
-    socket.on('chat',(msg,ID)=>{
+    socket.on('chat',(ID,msg)=>{
         // io.to(msg.room).emit('chat',msg.code);
         msg = msg.replace(/</g,'&lt');
-        io.emit('chat',msg,ID);
+        io.to(Room).emit('chat',ID,msg);
     });
     
     socket.on('disconnect',() => {
@@ -49,30 +49,50 @@ io.on('connection', socket => {
         });
     });
 
-    socket.on('joinRoom',room=>{
+    socket.on('join_room',room=>{
+        Room = room;
         socket.join(room,err=>{
            if(err){
                console.error(err);
-               socket.emit('join','failed');
+               socket.emit('join_room',room,'failed');
            }
-           else socket.emit('join','success',); 
-        });   
+           else socket.emit('join_room',room,'success',); 
+        });
     });
 
     socket.on('leaveRoom',room=>{
         socket.leave(room,err=>{
-            if(err){
-                console.error(err);
-                socket.emit('leave',failed);
-            }
-            else socket.emit('leave',success,room);
+            if(err) console.error(err);
         });
     });
 
-    socket.on('addFriends',(user,friends)=>{
-        
+    socket.on('upload',(ID,ment)=>{
+        user.findOneAndUpdate({ID:ID},{profile_ment:ment})
+        .then(() => {
+            socket.emit('upload',ment);
+        }).catch((err) => {
+            console.error(err);
+            socket.emit('upload',err);
+        });
+    })
+    socket.on('addFriend',(userID,friendName)=>{
+        user.findOne({ID:friendName})
+        .then((friend) => {
+            user.findOneAndUpdate({ID:userID},{$addToSet:{friends:friend._id}})
+            .then(() => {
+                console.log('addFriend success'+friend);
+                socket.emit('addFriend',friend);
+            }).catch((err) => {
+                console.error(err);
+                socket.emit('addFriend','failed');
+            });
+        }).catch((err) => {
+            console.error(err);
+            socket.emit('addFriend', 'failed');
+        });
     });
 
+    
 });
 
 http.listen(3000,() => {

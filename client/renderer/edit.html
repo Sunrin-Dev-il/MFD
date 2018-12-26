@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="./css/edit.css">
+</head>
+
+<body>
+  <div class="side_wrapper">
+    <section class="about-dev">
+
+      <div class="profile-card_about" style="height: 280px;">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <form id="upload">
+        <div class="filebox">
+          <span style="opacity: 0.5"> Id : </span>
+          <span id="ID"></span>
+        </div>
+
+        <br>
+
+        <div class="filebox">
+          <span style="opacity: 0.5"> 한 줄 소개 : </span>
+          <input type="text" id="ex_file2" class="mentUp">
+        </div>
+
+        <br>
+
+        <br>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    window.$ = window.jQuery = require('jQuery');
+    let userInfo;
+    const {
+      ipcRenderer
+    } = require('electron');
+    
+    window.onload = ()=>{
+        ipcRenderer.send('user');
+        ipcRenderer.once('user',(event,data)=>{
+          userInfo = data;
+          $("#ID").append(userInfo.ID);
+      });
+    }
+
+    $("#upload").on('submit', e => {
+      e.preventDefault();
+      const ment = $(".mentUp").val();
+      ipcRenderer.send('upload',ment);
+
+    });
+
+    ipcRenderer.on('upload', (event, result) => {
+      if (result !== null) {
+        alert('update success');
+        window.location.assign('mfd2_new2.html');
+      }
+    })
+  </script>
+
+
+</body>
+
+</html>

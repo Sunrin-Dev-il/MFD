@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="./css/mfd2_new.css">
+    <link rel="stylesheet" href="./css/atom-one-light.css">
+</head>
+
+<body>
+    <script src="./js/highlight.pack.js"></script>
+
+    <div class='css3-tab'>
+        <input type='radio' name='a' id='tabOne' tabindex="1">
+        <input type='radio' name='a' id='tabTwo' tabindex="2" checked>
+        <input type='radio' name='a' id='tabThree' tabindex="3">
+
+        <div class="css3-tab-nav">
+            <label for='tabOne'>My page.</label>
+            <label for='tabTwo'>Friends List.</label>
+            <label for='tabThree'>Chat Room.</label>
+        </div>
+
+        <div class='css3-tab-content tab-one'>
+
+            <div class="side_wrapper" style="position: relative;">
+                <section class="about-dev">
+                    <header class="profile-card_header">
+                        <div class="profile-card_header-container">
+                        </div>
+                    </header>
+                    <div class="profile-card_about">
+                        <br>
+                        <br>
+                        <h3 id="userID" style="text-align:center">ID:</h3>
+                        <h3 id="profile_ment" style="text-align: center"></h3>
+                        <footer class="profile-card_footer">
+                            <p><a href="edit.html " class="back-to-profile">Edit Profile.</a></p>
+                        </footer>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+
+
+        <div class='css3-tab-content tab-two'>
+            <div id="friendsList" class="container" style="background-color: pink; opacity: 0.5; ">
+
+                <br><br>
+
+                <form class="Search-form">
+                    <div class="Search-inner">
+                        <input type="search" id="SearchInput" placeholder="Frieds_id" />
+                        <label class="Label" for="SearchInput"></label>
+                    </div>
+                </form>
+                <Br>
+
+            </div>
+
+        </div>
+
+
+
+
+        <div class='css3-tab-content tab-Three'>
+            <div class="content">
+                <aside>
+                    <div class="head">
+                        <div class="avatar">Wm</div>
+                        <div class="name">이우민</div>
+                        <div class="mail">lwm7522@gmail.com</div>
+                    </div>
+                    <div class="friends_list ok">
+
+                        <div id="room_list">
+
+                        </div>
+                        <!-- <div class="friend active fcenter">
+                            <div class="avatarbox">
+                                <div class="avatar_overlay"><img src="./img/friends.png" /></div>
+                            </div>
+                            <div class="namemsg">
+                                <p class="b" id="room_name">백창인</p>
+                            </div>
+                        </div> -->
+                        
+                        <form id="add_room">
+                            <div class="Input">
+                                <input type="text" id="add_room_send" class="Input-text" placeholder="Enter." style="height: 40px; height: 50px; background-color: white; opacity: 0.5; ">
+                            </div>
+                        </form>
+
+                    </div>
+                </aside>
+                <div class="midcont">
+                    <div class="head">
+                        <div class="avatarbox">
+                            <div class="avatar_overlay"><img src="./img/friends.png" /></div>
+                        </div>
+                        <h4 id="main_room">no room</h4>
+                        </div>             
+
+                    <div class="messagescont" style="overflow-y: scroll; height:540px;">
+                        
+                    </div>
+
+
+                    <div class="bottomchat">
+
+                        <div style="display: inline">
+
+                            <div class="Wrapper">
+                                <form id=send>
+                                    <div class="Input">
+                                        <input type="text" id="input" class="Input-text" placeholder="Message.">
+                                    </div>
+                                    <i class="fa fa-microphone">
+                                        <a href="" class="btn btn-5" style="border-color : white">전송</a>
+                                    </i>
+                                </form>
+                                    
+                            </div>
+
+
+                            <Br><br>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script>
+            window.$ = window.jQuery = require('jQuery');
+            let userInfo;
+                const {
+                    ipcRenderer
+                } = require('electron');
+                
+                ipcRenderer.on('addFriend',(event, result)=>{
+                    if(result === 'success'){
+                        ipcRenderer.send('friendsList')
+                        ipcRenderer.once('friendsList', (event, friends)=>{
+			                friends.forEach(i => {
+                            $("#friendsList")
+                                .append('<div class="container darker"><p>'+i.ID+'</p><span class="time-left">'+i.profile_ment+'</span></div>');
+			                });
+                            alert('success');
+                        });   
+                    }
+                    else alert('failed');
+                });
+
+                window.onload = ()=>{
+                    ipcRenderer.send('user');
+                    ipcRenderer.once('user',(event,data)=>{
+                        userInfo = data;
+                        $("#userID").append(userInfo.ID);
+                        $("#profile_ment").append(userInfo.profile_ment);
+                    });
+                    
+                    ipcRenderer.send('friendsList');
+                    ipcRenderer.once('friendsList', (event, friends)=>{
+			            friends.forEach(i => {
+                        $("#friendsList")
+                            .append('<div class="container darker"><p>'+i.ID+'</p><span class="time-left">'+i.profile_ment+'</span></div>');
+                        });
+                    });
+                }
+
+                $(".Search-form").on('submit',e=>{
+                    e.preventDefault();
+                    let friends_id = $("#SearchInput").val();
+                    $("#SearchInput").val("");
+                    ipcRenderer.send('addFriend',friends_id);
+                    ipcRenderer.once('friendsList', (event, friends)=>{
+			        friends.forEach(i => {
+                    $("#friends_list")
+                        .append('<div class="container darker"><p>'+i.ID+'</p><span class="time-left">'+i.profile_ment+'</span></div>');
+			        });
+                });
+                
+                });
+
+                $("#send").on('submit', (e) => {
+                    e.preventDefault();
+                    let msg = $("#input").val();
+                    $("#input").val("");
+                    ipcRenderer.send('chat', msg);
+                });
+
+                $("#add_room").on('submit',e=>{
+                    e.preventDefault();
+                    let msg = $("#add_room_send").val();
+                    $("add_room_send").val("");
+                    ipcRenderer.send("join_room",msg);
+                    ipcRenderer.once('join_room',(event, room)=>{
+                        alert('success');
+                        $("#room_list").empty();
+                        $("#main_room").empty();
+                        $("messagecont").empty();
+                        $("#room_list").append('<div class="friend active fcenter"><div class="avatarbox"><div class="avatar_overlay"><img src="./img/friends.png" /></div></div><div class="namemsg"><p class="b" id="room_name">'+room+'</p></div></div>');
+                        $("#main_room").append(room);
+                    });
+                })
+                
+                ipcRenderer.on('chat', (event, ID,msg) => {
+                    $(".messagescont").append(
+                        '<div class="msg"><div class="user me t"><div class="avatarbox"><div class="avatar_overlay"><img/></div></div><div class="text" ID:>'+ID+'<code><pre>' +
+                        msg +
+                        '</pre></code></div></div></div>'
+                    );
+                    $("code pre").each(function (i, block) {
+                        hljs.highlightBlock(block);
+                    });
+                });
+
+                ipcRenderer.on('chat-for-me', (event,msg) => {
+                    $(".messagescont").append(
+                        '<div class="msg"><div class="user friend t"><div class="avatarbox"><div class="avatar_overlay"><img/></div></div><div class="text"><code><pre>' +
+                        msg +
+                        '</pre></code></div></div></div>'
+                    );
+                    $("code pre").each(function (i, block) {
+                        hljs.highlightBlock(block);
+                    });
+                });
+
+
+                $(".head").on("click", function () {
+                    $("#friends_list").toggleClass("active");
+                });
+        </script>
+
+</body>
+
+</html>
+</div>
+</div>
+</body>
+
+</html>
