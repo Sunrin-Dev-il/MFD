@@ -11,6 +11,17 @@ const io = require('socket.io-client')('http://localhost:3000', {
 
 let userInfo;
 let Room = null;
+
+function inArray(a,b){
+    let result =false;
+    b.forEach(i => {
+        if(i.ID === a){
+            result = true;
+        }
+    });
+    return result;
+}
+
 ipcMain.on('login', (event, ID, PW) => {
     io.emit('login', ID, PW);
     io.once('login', (result, user) => {
@@ -46,11 +57,13 @@ ipcMain.on('user',(event)=>{
 });
 
 ipcMain.on('addFriend',(event, name)=>{
-    io.emit('addFriend',userInfo.ID,name);
+    if (!inArray(name, userInfo.friends)) io.emit('addFriend',userInfo.ID,name);
+    else event.sender.send('addFriend','failed');
     io.once('addFriend',friend=>{
-        userInfo.friends.push(friend);
-        if (friend != null)
+        if (friend !== 'failed') {
+            userInfo.friends.push(friend);
             event.sender.send('addFriend','success');
+        }
         else
             event.sender.send('addFriend','failed');
     })

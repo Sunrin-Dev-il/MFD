@@ -78,14 +78,16 @@ io.on('connection', socket => {
     socket.on('addFriend',(userID,friendName)=>{
         user.findOne({ID:friendName})
         .then((friend) => {
-            user.findOneAndUpdate({ID:userID},{$addToSet:{friends:friend._id}})
-            .then(() => {
-                console.log('addFriend success'+friend);
-                socket.emit('addFriend',friend);
-            }).catch((err) => {
-                console.error(err);
-                socket.emit('addFriend','failed');
-            });
+            if(friend !== null){
+                user.findOneAndUpdate({ID:userID},{$addToSet:{friends:friend._id}})
+                .then(() => {
+                    socket.emit('addFriend',friend);
+                }).catch((err) => {
+                    console.error(err);
+                    socket.emit('addFriend','failed');
+                });
+            }
+            else socket.emit('addFriend','failed');
         }).catch((err) => {
             console.error(err);
             socket.emit('addFriend', 'failed');

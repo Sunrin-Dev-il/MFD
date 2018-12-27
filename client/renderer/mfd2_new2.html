@@ -44,9 +44,7 @@
 
 
         <div class='css3-tab-content tab-two'>
-            <div id="friendsList" class="container" style="background-color: pink; opacity: 0.5; ">
-
-                <br><br>
+            <div class="container" style="background-color: pink; opacity: 0.5; ">
 
                 <form class="Search-form">
                     <div class="Search-inner">
@@ -54,7 +52,7 @@
                         <label class="Label" for="SearchInput"></label>
                     </div>
                 </form>
-                <Br>
+                <div id="friendsList"></div>
 
             </div>
 
@@ -168,6 +166,7 @@
                     
                     ipcRenderer.send('friendsList');
                     ipcRenderer.once('friendsList', (event, friends)=>{
+                        $("#friendsList").empty();
 			            friends.forEach(i => {
                         $("#friendsList")
                             .append('<div class="container darker"><p>'+i.ID+'</p><span class="time-left">'+i.profile_ment+'</span></div>');
@@ -181,10 +180,11 @@
                     $("#SearchInput").val("");
                     ipcRenderer.send('addFriend',friends_id);
                     ipcRenderer.once('friendsList', (event, friends)=>{
-			        friends.forEach(i => {
-                    $("#friends_list")
-                        .append('<div class="container darker"><p>'+i.ID+'</p><span class="time-left">'+i.profile_ment+'</span></div>');
-			        });
+                        $("#friendsList").empty();
+			            friends.forEach(i => {
+                        $("#friendsList")
+                            .append('<div class="container darker"><p>'+i.ID+'</p><span class="time-left">'+i.profile_ment+'</span></div>');
+			            });
                 });
                 
                 });
